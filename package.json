@@ -1,6 +1,6 @@
 {
   "name": "inhabit-module-eventual",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "InHabit Base Eventual Module class, that you can extend",
   "main": "src/InhabitModuleEventual.js",
   "scripts": {
