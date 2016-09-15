@@ -4,7 +4,8 @@
   "description": "InHabit Base Eventual Module class, that you can extend",
   "main": "src/InhabitModuleEventual.js",
   "scripts": {
-    "test": "tape test/*.test.js | tap-nyan"
+    "test": "tape test/*.test.js | tap-nyan",
+    "push-patch": "npm version patch; git push; git push --tags"
   },
   "repository": {
     "type": "git",
