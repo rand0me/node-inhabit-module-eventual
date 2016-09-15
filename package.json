@@ -4,7 +4,7 @@
   "description": "InHabit Base Eventual Module class, that you can extend",
   "main": "src/InhabitModuleEventual.js",
   "scripts": {
-    "test": "tape test/*.test.js"
+    "test": "tape test/*.test.js | tap-nyan"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/rand0me/node-inhabit-module-eventual#readme",
   "devDependencies": {
+    "tap-nyan": "0.0.2",
     "tape": "^4.6.0"
   },
   "dependencies": {

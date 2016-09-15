@@ -1,0 +1,3 @@
+cmd: "npm run test"
+name: "test"
+sh: true
