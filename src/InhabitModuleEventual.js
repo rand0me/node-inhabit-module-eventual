@@ -15,33 +15,47 @@ var TEXT_CLASSIFICATION_METHODS = [ 'Keywords', 'Entities', 'Taxonomy' ];
 function InhabitModuleEventual() {
   InhabitModuleBase.apply(this, arguments);
   this.emitter = new EventEmitter();
+
+  this.deferred = this.$.Deferred();
+
+  this.on('load', this.onLoad);
+  this.on('content', this.resolveContent);
+  this.on('timeout', this.rejectContent);
 }
 
 InhabitModuleEventual.prototype = Object.create(InhabitModuleBase.prototype);
 InhabitModuleEventual.prototype.constructor = InhabitModuleEventual;
 
+InhabitModuleEventual.prototype.setContent = function (content) {
+  this.emit('content', content);
+};
+
+InhabitModuleEventual.prototype.resolveContent = function (content) {
+  try {
+    ContentValidator.validate(content);
+    this.content = content;
+    this.deferred.resolve(this);
+  } catch (error) {
+    this.rejectContent(error);
+  }
+};
+
+InhabitModuleEventual.prototype.rejectContent = function (reason) {
+  this.content = false;
+  this.deferred.reject(reason);
+};
+
 //------------------------------------------------------------------------------
 // InhabitModuleBase interface implementation
 InhabitModuleEventual.prototype.getContent = function () {
-  var deferred = this.$.Deferred();
-
-  this.on('content', function (content) {
-    try {
-      ContentValidator.validate(content);
-      this.content = content;
-      deferred.resolve(this);
-    }
-    catch (error) { deferred.reject(error); }
-  });
-
   this.emit('load');
   this.checkClassification();
 
-  return deferred.promise();
+  return this.deferred.promise();
 };
 
 InhabitModuleEventual.prototype.hasContent = function () {
-  return true;
+  return !!this.content;
 };
 
 InhabitModuleEventual.prototype.getType = function () {
@@ -54,6 +68,10 @@ InhabitModuleEventual.prototype.getTitle = function () {
 
 InhabitModuleEventual.prototype.getThumbnail = function () {
   return this.content.thumbnail
+};
+
+InhabitModuleEventual.prototype.display = function ($container) {
+  this.render($container);
 };
 //------------------------------------------------------------------------------
 
