@@ -1,5 +1,7 @@
 # inhabit-module-eventual
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rand0me/node-inhabit-module-eventual.svg)](https://greenkeeper.io/)
+
 ## For what?
 To simplify the structure of module and make it understandable for those who familiar with Eventual Pattern (jquery)
 
